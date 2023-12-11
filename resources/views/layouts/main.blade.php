@@ -13,6 +13,9 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://kit.fontawesome.com/1bf067c1d8.js" crossorigin="anonymous"></script>
+
+        <!-- Agregamos los estilos del livewire -->
+        @livewireStyles
     </head>
     <body>
         <div style="font-family: Aldrich">
@@ -24,6 +27,9 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script> --}}
+
+        <!-- Agregamos los scripts del livewire -->
+        @livewireScripts
 
     </body>
 </html>
