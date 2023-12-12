@@ -20,25 +20,17 @@
                         </div>
                     </div>
                     <div class="hidden md:block md:ml-10 md:pr-4 md:space-x-8 text-lg">
-                        <x-navigation.links class="text-gray-200 hover:text-red-300" :items="$items" />
-                        {{-- @foreach ($items as $item)
-                            <a href="{{ $item->link }}" class="font-medium text-gray-200 hover:text-red-300">{{ $item->label }}</a>
-                        @endforeach --}}
-                        
+                        <x-navigation.links class="text-gray-200 hover:text-red-300" :items="$items"/>
                     </div>
-                    <!-- Aqui botones edit y add -->
-
-                    <div class="hidden md:flex items-center justify-between space-x-2 ml-4 pb-1"> 
-                        <x-actions.action class="text-yellow-300 hover:text-blue-300" title="{{__('Edit')}}">
-                            <x-icons.edit />
+                    
+                    <div class="hidden md:flex items-center justify-between space-x-2 ml-4 pb-1">
+                        <x-actions.action wire:click.prevent="openSlide" class="text-yellow-300 hover:text-blue-300" title="{{ __('Edit') }}">
+                            <x-icons.edit/>
                         </x-actions.action>
-
-                        <x-actions.action class="text-yellow-300 hover:text-blue-300" title="{{__('New')}}">
-                            <x-icons.add />
+                        <x-actions.action wire:click.prevent="openSlide(true)" class="text-yellow-300 hover:text-blue-300" title="{{ __('New') }}">
+                            <x-icons.add/>
                         </x-actions.action>
                     </div>
-
-                        
                 </nav>
             </div>
 
@@ -58,24 +50,24 @@
                         </div>
                     </div>
                     <div class="px-2 pt-2 pb-3 space-y-1">
-                        <x-navigation.links class="block px-3 py-2 rounded-md text-base text-gray-700 hover:text-gray-900 hover:bg-gray-50" :items="$items" />
-                        {{-- @foreach ($items as $item)
-                            <a href="{{ $item->link }}" class="font-medium block px-3 py-2 rounded-md text-base text-gray-700 hover:text-gray-900 hover:bg-gray-50" > {{ $item->label }}</a>
-                        @endforeach --}}
-                        <!-- Aqui botones edit y add -->
-                        <x-actions.action class="block px-2 text-yellow-500 hover:text-blue-500" title="{{__('Edit')}}">
-                            <x-icons.edit />
+                        <x-navigation.links class="block px-3 py-2 rounded-md text-base text-gray-700 hover:text-gray-900 hover:bg-gray-50" :items="$items"/>
+                        <x-actions.action wire:click.prevent="openSlide" class="block px-2 text-yellow-500 hover:text-blue-500" title="{{ __('Edit') }}">
+                            <x-icons.edit/>
                         </x-actions.action>
-
-                        <x-actions.action class="block px-2 text-yellow-500 hover:text-blue-500" title="{{__('New')}}">
-                            <x-icons.add />
+                        <x-actions.action wire:click.prevent="openSlide(true)" class="block px-2 text-yellow-500 hover:text-blue-500" title="{{ __('New') }}">
+                            <x-icons.add/>
                         </x-actions.action>
-                        
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- slideover add/edit -->
+        <x-modals.slideover>
+            @if($addNewItem)
+                Formulario para agregar...
+            @else
+                Formulario para editar...
+            @endif
+        </x-modals.slideover>
     </section>
 </div>

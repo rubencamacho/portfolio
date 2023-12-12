@@ -5,6 +5,9 @@
 
     RewriteEngine On
 
+    # Agrega esta regla para manejar las solicitudes de Livewire
+    # RewriteRule ^livewire/livewire\.js - [L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

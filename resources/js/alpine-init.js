@@ -1,6 +1,9 @@
 // alpine-init.js
-import Alpine from 'alpinejs';
+import { Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm'
 
-window.Alpine = Alpine;
+// import Alpine from 'alpinejs';
+
+// window.Alpine = Alpine;
+
 
 Alpine.start();

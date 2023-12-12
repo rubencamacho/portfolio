@@ -1,6 +1,13 @@
 import './bootstrap';
 
-import './alpine-init'; // Importa la inicialización de Alpine
+// import Alpine from 'alpinejs';
+
+// window.Alpine = Alpine;
+// // import { Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm'
+
+// // Livewire.start()
+// Alpine.start();
+
 
 
 
