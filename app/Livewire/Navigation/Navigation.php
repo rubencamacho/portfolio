@@ -11,6 +11,8 @@ class Navigation extends Component
     public $openSlideover = false;
     public $addNewItem = false;
 
+    protected $listeners = ['deleteItem'];
+    
     protected $rules = [
         'items.*.label' => 'required|string|min:3|max:20',
         'items.*.link' => 'required|max:40',
@@ -41,8 +43,17 @@ class Navigation extends Component
         $this->reset('openSlideover');
         // notify
         // $this->dispatch('notify', ['message' => 'Elementos actualizados exitosamente']);
-        $this->dispatch('notify', message: "Menu items updated successfully");
+        $this->dispatch('notify', message: __("Menu items updated successfully"));
     }
+
+    public function deleteItem(Navitem $item)
+    {
+    
+        $item->delete();
+        $this->items = Navitem::all();
+        $this->dispatch('deleteMessage', message: __("Menu item has been deleted."));
+    }
+
 
     public function render()
     {
