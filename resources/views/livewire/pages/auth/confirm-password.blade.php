@@ -46,7 +46,7 @@ $confirmPassword = function () {
         <div>
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input wire:model="password"
+            <x-text-input wire:model.live="password"
                           id="password"
                           class="block mt-1 w-full"
                           type="password"

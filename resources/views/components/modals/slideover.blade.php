@@ -1,6 +1,6 @@
-{{-- <div x-data="{ open: @entangle('openSlideover').defer }" --}}
+{{-- <div x-data="{ open: @entangle('openSlideover').live }" --}}
 {{-- <div x-data="{ open: $wire.entangle('openSlide0ver').defer }" --}}
-<div x-data="{ open: $wire.entangle('openSlideover') }"
+<div x-data="{ open: $wire.$entangle('openSlideover', true) }"
 @keydown.window.escape="open = false"
 x-show="open" class="relative z-10" aria-labelledby="slide-over-title" x-ref="dialog" aria-modal="true">
 

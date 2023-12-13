@@ -11,7 +11,12 @@ class Navigation extends Component
     public $openSlideover = false;
     public $addNewItem = false;
 
-    public function mount()
+    protected $rules = [
+        'items.*.label' => 'required|string|min:3|max:20',
+        'items.*.link' => 'required|max:40',
+    ];
+
+    public function mount(Navitem $items)
     {
         $this->items = Navitem::all();
     }
@@ -23,6 +28,18 @@ class Navigation extends Component
 
         // Imprimir mensaje en la consola para depuración
         // dd($this->addNewItem);
+    }
+
+    public function edit()
+    {
+        $this->validate();
+
+        foreach ($this->items as $item) {
+            $item->save();
+        }
+
+        $this->reset('openSlideover');
+        // notify
     }
 
     public function render()

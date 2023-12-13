@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Navigation\Navigation;
+// use App\Livewire\Navigation\Navigation;
 // use Livewire\Livewire;
 
 
@@ -18,7 +18,7 @@ use App\Livewire\Navigation\Navigation;
 
 Route::view('/', 'portfolio');
 
-Route::get('/navigation', Navigation::class);
+// Route::get('/navigation', Navigation::class);
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
