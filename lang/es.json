@@ -72,5 +72,11 @@
     "You're logged in!": "¡Usted está conectado!",
     "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
     "Edit": "Editar",
-    "New": "Nuevo"
+    "New": "Nuevo",
+    "Item": "Elemento",
+    "label": "Etiqueta",
+    "link": "Enlace",
+    "update": "Actualizar",
+    "here are no items to show": "No existen elementos para mostrar!",
+    "Menu items updated successfully": "Elementos del menú actualizados correctamente"
 }

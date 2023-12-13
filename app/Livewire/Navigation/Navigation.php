@@ -40,14 +40,12 @@ class Navigation extends Component
 
         $this->reset('openSlideover');
         // notify
+        // $this->dispatch('notify', ['message' => 'Elementos actualizados exitosamente']);
+        $this->dispatch('notify', message: "Menu items updated successfully");
     }
 
     public function render()
     {
         return view('livewire.navigation.navigation');
-
-        // return view('livewire.navigation.navigation', [
-        //     'openSlideOver' => $this->openSlideOver,
-        // ]);
     }
 }
