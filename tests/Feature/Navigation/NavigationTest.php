@@ -89,4 +89,63 @@ class NavigationTest extends TestCase
         
     }
 
+    /** @test */
+    public function label_of_items_id_required()
+    {
+        $user = User::factory()->create();
+
+        $items = Navitem::factory(2)->create();
+
+        Livewire::actingAs($user)->test(Navigation::class)
+            ->set('items.0.label', '')
+            ->set('items.1.label', '')
+            ->call('edit')
+            ->assertHasErrors(['items.0.label' => 'required'])
+            ->assertHasErrors(['items.1.label' => 'required']);
+    }
+
+    /** @test */
+    public function link_of_items_id_required()
+    {
+        $user = User::factory()->create();
+
+        $items = Navitem::factory(2)->create();
+
+        Livewire::actingAs($user)->test(Navigation::class)
+            ->set('items.0.link', '')
+            ->set('items.1.link', '')
+            ->call('edit')
+            ->assertHasErrors(['items.0.link' => 'required'])
+            ->assertHasErrors(['items.1.link' => 'required']);
+    }
+
+    /** @test */
+    public function label_of_items_must_have_a_of_twenty_characters()
+    {
+        $user = User::factory()->create();
+
+        $items = Navitem::factory(2)->create();
+
+        Livewire::actingAs($user)->test(Navigation::class)
+            ->set('items.0.label', 'This is a very long label for a navigation item')
+            ->set('items.1.label', 'This is a very long label for a navigation item')
+            ->call('edit')
+            ->assertHasErrors(['items.0.label' => 'max'])
+            ->assertHasErrors(['items.1.label' => 'max']);
+    }
+
+    /** @test */
+    public function link_of_items_must_have_a_of_forty_characters()
+    {
+        $user = User::factory()->create();
+
+        $items = Navitem::factory(2)->create();
+
+        Livewire::actingAs($user)->test(Navigation::class)
+            ->set('items.0.link', 'This is a very long link for a navigation item and more')
+            ->set('items.1.link', 'This is a very long link for a navigation item and more')
+            ->call('edit')
+            ->assertHasErrors(['items.0.link' => 'max'])
+            ->assertHasErrors(['items.1.link' => 'max']);
+    }
 }
