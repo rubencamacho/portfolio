@@ -13,4 +13,14 @@ class InfoTest extends TestCase
     {
         $this->get('/')->assertStatus(200)->assertSeeLivewire('hero.info');
     }
+
+    /** @test */
+    public function component_cant_load_hero_information()
+    {
+        $info = PersonalInformation::factory()->create();
+
+        Livewire::test(Info::class)
+            ->assertSet($info->tutle)
+            ->assertSet($info->description);
+    }
 }

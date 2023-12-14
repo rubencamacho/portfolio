@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+
 use App\Models\Navitem;
+use App\Models\PersonalInformation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -32,6 +34,14 @@ class DatabaseSeeder extends Seeder
         Navitem::factory()->create([
             'label' => 'Contacto',
             'link'  => '#contacto',
+        ]);
+
+        PersonalInformation::factory()->create([
+            'title' => 'Desarrollo y Diseño Web',
+            'description' => 'Rubén: Pasión por web, PHP/JS, explorador de Laravel y tecnologías nuevas.',
+            'cv' => null,
+            'image' => null,
+            'email' => 'rubencamachorguez@gmail.com'
         ]);
     }
 }
