@@ -13,14 +13,14 @@ class Navigation extends Component
     public $openSlideover = false;
     public $addNewItem = false;
 
-    protected $listeners = ['deleteItem'];
+    protected $listeners = ['deleteItem', 'itemAdded' => 'updateDataAfterAddItem'];
     
     protected $rules = [
         'items.*.label' => 'required|string|min:3|max:20',
         'items.*.link' => 'required|max:40',
     ];
 
-    public function mount(Navitem $items)
+    public function mount()
     {
         $this->items = Navitem::all();
     }
@@ -32,6 +32,12 @@ class Navigation extends Component
 
         // Imprimir mensaje en la consola para depuración
         // dd($this->addNewItem);
+    }
+
+    public function updateDataAfterAddItem()
+    {
+        $this->mount();
+        $this->reset('openSlideover');
     }
 
     public function edit()

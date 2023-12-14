@@ -24,6 +24,9 @@ class Item extends Component
     {
         $this->validate();
         $this->item->save();
+        // $this->emitTo('navigation.navigation', 'itemAdded');
+        $this->dispatch('itemAdded','navigation.navigation');
+        $this->mount();
         $this->notify(__('Item created successfully!'));
     }
 
