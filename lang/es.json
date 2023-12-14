@@ -78,5 +78,10 @@
     "link": "Enlace",
     "update": "Actualizar",
     "here are no items to show": "No existen elementos para mostrar!",
-    "Menu items updated successfully": "Elementos del menú actualizados correctamente"
+    "Menu items updated successfully": "Elementos del menú actualizados correctamente",
+    "Are you sure?": "¿Estás seguro?",
+    "You will not be able to revert this!": "No se puede revertir esta acción",
+    "Yes, delete it!": "Sí, elimínalo",
+    "Deleted":"Eliminar",
+    "Menu item has been deleted.": "El elemento del menú ha sido eliminado."
 }
