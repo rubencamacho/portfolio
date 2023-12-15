@@ -4,11 +4,14 @@ namespace App\Livewire\Navigation;
 
 use App\Models\Navitem;
 use Livewire\Component;
+use App\Livewire\Traits\Slideover;
 use App\Livewire\Traits\Notefication;
+
 
 class Navigation extends Component
 {
-    use Notefication;
+    use Notefication, Slideover;
+
     public $items;
     public $openSlideover = false;
     public $addNewItem = false;
@@ -23,15 +26,6 @@ class Navigation extends Component
     public function mount()
     {
         $this->items = Navitem::all();
-    }
-
-    public function openSlide($addNewItem = false)
-    {
-        $this->addNewItem = $addNewItem;
-        $this->openSlideover = true;
-
-        // Imprimir mensaje en la consola para depuración
-        // dd($this->addNewItem);
     }
 
     public function updateDataAfterAddItem()

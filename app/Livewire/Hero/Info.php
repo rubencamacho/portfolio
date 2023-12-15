@@ -4,11 +4,16 @@ namespace App\Livewire\Hero;
 
 use App\Models\PersonalInformation;
 use Livewire\Component;
+use App\Livewire\Traits\Slideover;
 
 class Info extends Component
 {
+    use Slideover;
+
     public PersonalInformation $info;
     public $cvFile = null;
+    public $imageFile = null;
+    // public $openSlideover = false;
 
     public function mount()
     {
