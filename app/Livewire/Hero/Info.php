@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Livewire\Traits\Slideover;
 use App\Livewire\Traits\WidthImageFile;
 use App\Livewire\Traits\Notefication;
+use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
 class Info extends Component
@@ -36,6 +37,12 @@ class Info extends Component
         $this->info = PersonalInformation::first() ?? new PersonalInformation();
     }
 
+    public function download()
+    {
+        return Storage::disk('cv')->download($this->info->cv ?? 'my-cv.pdf');
+    }
+    
+    
     public function edit()
     {
         $this->validate();
