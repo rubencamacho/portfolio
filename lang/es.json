@@ -76,7 +76,7 @@
     "Item": "Elemento",
     "label": "Etiqueta",
     "link": "Enlace",
-    "update": "Actualizar",
+    "Update": "Actualizar",
     "here are no items to show": "No existen elementos para mostrar!",
     "Menu items updated successfully": "Elementos del menú actualizados correctamente",
     "Are you sure?": "¿Estás seguro?",
@@ -88,5 +88,12 @@
     "These are the static links for the 3 sections of portfolio (Home, Projects and Contact):": "Estos son los enlaces estáticos para las 3 secciones del portafolio (Inicio, Proyectos y Contacto):",
     "hello": "hola",
     "projects": "proyectos", 
-    "contact": "contacto"
+    "contact": "contacto",
+    "Title": "Título",
+    "Description": "Descripción",
+    "Image": "Imagen",
+    "Open Current File": "Ver Archivo Actual",
+    "Select File": "Seleccionar archivo",
+    "Information saved successfully": "Información guardada correctamente"
+
 }
