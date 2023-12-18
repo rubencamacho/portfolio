@@ -57,6 +57,7 @@ class Info extends Component
         if ($this->imageFile) {
             $this->deleteFile(disk: 'hero', file: $this->info->image);
             $this->info->update(['image' => $this->imageFile->store('/', 'hero')]);
+            $this->dispatch('heroImageUpdated', 'hero.image');
         }
 
         $this->resetExcept('info');
