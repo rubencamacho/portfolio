@@ -66,26 +66,136 @@ class InfoTest extends TestCase
         Storage::fake('hero');
         Storage::fake('cv');
 
-        Livewire::actingAs($user)
-            ->test(Info::class)
-            ->set('info.title', 'Rubén Camacho')
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', 'Adolfo Gutierrez')
             ->set('info.description', 'Software Developer in Laravel PHP')
-            ->set('imageFile', $image)
             ->set('cvFile', $cv)
+            ->set('imageFile', $image)
             ->call('edit');
-        
+
         $info->refresh();
-    
+
         $this->assertDatabaseHas('personal_information', [
-            'ID' => $info->ID,
-            'title' => 'Rubén Camacho',
+            'id' => $info->id,
+            'title' => 'Adolfo Gutierrez',
             'description' => 'Software Developer in Laravel PHP',
-            'image' => $info->image,
             'cv' => $info->cv,
+            'image' => $info->image,
         ]);
 
         Storage::disk('hero')->assertExists($info->image);
         Storage::disk('cv')->assertExists($info->cv);
+    }
 
+    /** @test */
+    public function can_download_cv()
+    {
+        Livewire::test(Info::class)
+            ->call('download')
+            ->assertFileDownloaded('my-cv.pdf');
+    }
+
+    /** @test */
+    public function title_is_required()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', '')
+            ->set('info.description', 'This is a description')
+            ->call('edit')
+            ->assertHasErrors(['info.title' => 'required'])
+            ->assertHasNoErrors(['info.description' => 'required']);
+    }
+
+    /** @test */
+    public function title_must_have_a_maximum_of_eighty_characters()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', str_repeat('a', 81))
+            ->set('info.description', 'This is a description')
+            ->call('edit')
+            ->assertHasErrors(['info.title' => 'max'])
+            ->assertHasNoErrors(['info.description' => 'max']);
+    }
+
+    /** @test */
+    public function description_is_required()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', 'This is a title')
+            ->set('info.description', '')
+            ->call('edit')
+            ->assertHasErrors(['info.description' => 'required'])
+            ->assertHasNoErrors(['info.title' => 'required']);  
+    }
+
+    /** @test */
+    public function description_must_have_a_maximum_of_two_hundred_fifty_characters()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', 'This is a title')
+            ->set('info.description', str_repeat('a', 251))
+            ->call('edit')
+            ->assertHasErrors(['info.description' => 'max'])
+            ->assertHasNoErrors(['info.title' => 'max']);
+    }
+
+    /** @test */
+    public function cv_file_must_be_a_pdf()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', 'This is a title')
+            ->set('info.description', 'This is a description')
+            ->set('cvFile', UploadedFile::fake()->image('cv.jpg'))
+            ->call('edit')
+            ->assertHasErrors(['cvFile' => 'mimes']);
+    }
+
+    /** @test */
+    public function cv_file_must_be_max_one_megabyte()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', 'This is a title')
+            ->set('info.description', 'This is a description')
+            ->set('cvFile', UploadedFile::fake()->create('cv.pdf', 1025))
+            ->call('edit')
+            ->assertHasErrors(['cvFile' => 'max']);
+    }
+
+    /** @test */
+    public function image_file_must_be_an_image()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', 'This is a title')
+            ->set('info.description', 'This is a description')
+            ->set('imageFile', UploadedFile::fake()->create('image.pdf'))
+            ->call('edit')
+            ->assertHasErrors(['imageFile' => 'image']);
+    }
+
+    /** @test */
+    public function image_file_must_be_max_one_megabyte()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(Info::class)
+            ->set('info.title', 'This is a title')
+            ->set('info.description', 'This is a description')
+            ->set('imageFile', UploadedFile::fake()->image('image.jpg')->size(2025))
+            ->call('edit')
+            ->assertHasErrors(['imageFile' => 'max']);
     }
 }
