@@ -7,6 +7,7 @@ namespace Database\Seeders;
 
 use App\Models\Navitem;
 use App\Models\PersonalInformation;
+use App\Models\Project;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -43,5 +44,7 @@ class DatabaseSeeder extends Seeder
             'image' => null,
             'email' => 'rubencamachorguez@gmail.com'
         ]);
+
+        Project::factory(3)->create();
     }
 }
