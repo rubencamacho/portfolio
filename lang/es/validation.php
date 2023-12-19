@@ -223,6 +223,8 @@ return [
         'link'                     => 'enlace',
         'cvFile'                   => 'Archivo del CV',
         'imageFile'                => 'Archivo de la imagen',
+        'video_link'               => 'enlace de video',
+        'repo_url'                 => 'url de repositorio',
     ],
     'custom'                       => [
         'items.*.label' => [

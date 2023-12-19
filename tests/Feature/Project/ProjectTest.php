@@ -5,8 +5,10 @@ namespace Tests\Feature\Project;
 use App\Livewire\Project\Project;
 use App\Models\Project as ProjectModel;
 use App\Models\User;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Termwind\Components\Li;
 use Tests\TestCase;
@@ -83,5 +85,38 @@ class ProjectTest extends TestCase
         
         // $this->assertGuest();
     }
+
+    /** @test */
+    public function admin_can_add_a_project()
+    {
+        $user = User::factory()->create();
+        $image = UploadedFile::fake()->image('myproject.jpg');
+        Storage::fake('projects');
+
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.name', 'My Project')
+            ->set('currentProject.description', 'My Project Description')
+            ->set('imageFile', $image)
+            ->set('currentProject.video_link', 'https://www.youtube.com/watch?v=vmuwGgdK4IU')
+            ->set('currentProject.url', 'https://www.cafedelprogramador.com/')
+            ->set('currentProject.repo_url', 'https://github.com/rubencamacho/portfolio')
+            ->call('save');
+
+        $newProject = ProjectModel::first();
+
+        $this->assertDatabaseHas('projects', [
+            'id' => $newProject->id,
+            'name' => 'My Project',
+            'description' => 'My Project Description',
+            'image' => $newProject->image,
+            'video_link' => $newProject->video_link,
+            'url' =>  $newProject->url,
+            'repo_url' => $newProject->repo_url
+        ]);
+
+        Storage::disk('projects')->assertExists($newProject->image);
+    }
+
     
 }
