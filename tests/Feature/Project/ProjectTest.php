@@ -5,9 +5,9 @@ namespace Tests\Feature\Project;
 use App\Livewire\Project\Project;
 use App\Models\Project as ProjectModel;
 use App\Models\User;
-use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Termwind\Components\Li;
@@ -116,6 +116,40 @@ class ProjectTest extends TestCase
         ]);
 
         Storage::disk('projects')->assertExists($newProject->image);
+    }
+
+    /** @test */
+    public function admin_can_edit_a_project()
+    {
+        $user = User::factory()->create();
+        $project = ProjectModel::factory()->create();
+        $image = UploadedFile::fake()->image('myproject.jpg');
+        Storage::fake('projects');
+
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->call('loadProject', $project->id)
+            ->set('currentProject.name', 'My Project')
+            ->set('currentProject.description', 'My Project Description')
+            ->set('imageFile', $image)
+            ->set('currentProject.video_link', 'https://www.youtube.com/watch?v=vmuwGgdK4IU')
+            ->set('currentProject.url', 'https://www.cafedelprogramador.com/')
+            ->set('currentProject.repo_url', 'https://github.com/rubencamacho/portfolio')
+            ->call('save');
+
+        $project->refresh();
+        
+        $this->assertDatabaseHas('projects', [
+            'id' => $project->id,
+            'name' => 'My Project',
+            'description' => 'My Project Description',
+            'image' => $project->image,
+            'video_link' => $project->video_link,
+            'url' =>  $project->url,
+            'repo_url' => $project->repo_url
+        ]);
+
+        Storage::disk('projects')->assertExists($project->image);
     }
 
     
