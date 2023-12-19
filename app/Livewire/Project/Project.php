@@ -5,16 +5,18 @@ namespace App\Livewire\Project;
 use App\Livewire\Traits\Notefication;
 use App\Livewire\Traits\Slideover;
 use App\Livewire\Traits\WidthImageFile;
-use App\Models\Project as ModelsProject;
+use App\Models\Project as ProjectModel;
 use Livewire\Component;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Livewire\WithFileUploads;
 
 class Project extends Component
 {
     use Slideover, WidthImageFile, WithFileUploads, Notefication;
 
-    public ModelsProject $currentProject;
+    public ProjectModel $currentProject;
     public bool $openModal = false;
+
+    protected $listeners = ['deleteProject'];
 
     protected $rules = [
         'currentProject.name' => 'required|max:100',
@@ -27,26 +29,26 @@ class Project extends Component
 
     public function mount()
     {
-        $this->currentProject = new ModelsProject();
+        $this->currentProject = new ProjectModel();
     }
 
-    public function loadProject(ModelsProject $project, $modal = true)
+    public function loadProject(ProjectModel $project, $modal = true)
     {
-        if($this->currentProject->isNot($project)) {
+        if ($this->currentProject->isNot($project)) {
             $this->currentProject = $project;
         }
 
         $this->openModal = $modal;
 
-        if(!$modal){
+        if (!$modal) {
             $this->openSlide();
         }
     }
 
     public function create()
     {
-        if($this->currentProject->exists) {
-            $this->currentProject = new ModelsProject();
+        if ($this->currentProject->getKey()) {
+            $this->currentProject = new ProjectModel();
         }
 
         $this->openSlide();
@@ -56,23 +58,28 @@ class Project extends Component
     {
         $this->validate();
 
-        if($this->imageFile) {
-            //Si existe un archivo de imagen, se elimina el anterior
+        if ($this->imageFile) {
             $this->deleteFile('projects', $this->currentProject->image);
-
             $this->currentProject->image = $this->imageFile->store('/', 'projects');
         }
 
         $this->currentProject->save();
 
         $this->reset(['imageFile', 'openSlideover']);
-        $this->notify(__('Project saved successfully'));
+        $this->notify(__('Project saved successfully!'));
     }
 
+    public function deleteProject(ProjectModel $value)
+    {
+        $project = $value;
+        $this->deleteFile('projects', $project->image);
+        $project->delete();
+        $this->notify(__('Project has been deleted.'), 'deleteMessage');
+    }
 
     public function render()
     {
-        $projects = ModelsProject::get();
-        return view('livewire.project.project', compact('projects'));
+        $projects = ProjectModel::get();
+        return view('livewire.project.project', ['projects' => $projects]);
     }
 }

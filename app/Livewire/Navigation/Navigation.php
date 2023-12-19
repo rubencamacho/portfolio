@@ -47,9 +47,9 @@ class Navigation extends Component
         $this->notify(__("Menu items updated successfully"));
     }
 
-    public function deleteItem(Navitem $item)
-    {
-    
+    public function deleteItem(Navitem $value)
+    {  
+        $item = $value;
         $item->delete();
         $this->items = Navitem::all();
         $this->notify(__("Menu item has been deleted."), 'deleteMessage');

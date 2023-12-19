@@ -48,9 +48,7 @@ window.addEventListener('deleteit', event => {
     }).then((result) => {
         if (result.isConfirmed) {
             // Livewire.emit(event.detail.eventName, event.detail.id);
-            Livewire.dispatch(event.detail.eventName, { item: event.detail.id });
-
-
+            Livewire.dispatch(event.detail.eventName, { value: event.detail.id });
         }
     });
 });
