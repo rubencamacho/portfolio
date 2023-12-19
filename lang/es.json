@@ -96,6 +96,9 @@
     "Select File": "Seleccionar archivo",
     "Information saved successfully": "Información guardada correctamente",
     "Projects": "Proyectos",
-    "There are no projects to show": "No hay proyectos para mostrar"
+    "There are no projects to show": "No hay proyectos para mostrar",
+    "Close": "Cerrar",
+    "New Project": "Nuevo Proyecto",
+    "Delete": "Eliminar"
 
 }
