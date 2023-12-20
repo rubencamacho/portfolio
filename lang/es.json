@@ -105,6 +105,9 @@
     "Show more": "Ver más",
     "Show less": "Ver menos",
     "Contact-me": "contáctame",
-    "There is no contact email to show": "No hay correo de contacto para mostrar"
+    "There is no contact email to show": "No hay correo de contacto para mostrar",
+    "Email Address": "Correo electrónico",
+    "Update Email": "Actualizar email",
+    "Contact email updated successfully.": "Correo de contacto actualizado correctamente."
 
 }
