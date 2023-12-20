@@ -179,5 +179,138 @@ class ProjectTest extends TestCase
         Storage::disk('projects')->assertMissing($project->image);
     }
 
+    /** @test */
+    public function name_is_required()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.name', '')
+            ->call('save')
+            ->assertHasErrors(['currentProject.name' => 'required']);
+    }
+
+    /** @test */
+    public function name_must_be_max_100_characters()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.name', str_repeat('a', 101))
+            ->call('save')
+            ->assertHasErrors(['currentProject.name' => 'max']);
+    }
+
+    /** @test */
+    public function description_is_required()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.description', '')
+            ->call('save')
+            ->assertHasErrors(['currentProject.description' => 'required']);
+    }
+
+    /** @test */
+    public function description_must_be_max_450_characters()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.description', str_repeat('a', 451))
+            ->call('save')
+            ->assertHasErrors(['currentProject.description' => 'max']);
+    }
+
+    /** @test */
+    public function image_must_be_an_image()
+    {
+        $user = User::factory()->create();
+        $image = UploadedFile::fake()->create('myproject.pdf', 1024, 'application/pdf');
+
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('imageFile', $image)
+            ->call('save')
+            ->assertHasErrors(['imageFile' => 'image']);
+    }
+
+    /** @test */
+    public function image_must_be_max_1024_kb()
+    {
+        $user = User::factory()->create();
+        $image = UploadedFile::fake()->image('myproject.jpg')->size(1025);
+
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('imageFile', $image)
+            ->call('save')
+            ->assertHasErrors(['imageFile' => 'max']);
+    }
+
+    /** @test */
+    public function video_link_must_be_a_valid_url()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.video_link', 'invalid_url')
+            ->call('save')
+            ->assertHasErrors(['currentProject.video_link' => 'url']);
+    }
+
+    /** @test */
+    public function video_link_must_match_with_regex()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.video_link', 'https://www.youtube.com/watch?v=vmuwGgdK4IU')
+            ->call('save')
+            ->assertHasNoErrors(['currentProject.video_link' => 'regex']);
+    }
+
+    /** @test */
+    public function url_must_be_a_valid_url()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.url', 'invalid_url')
+            ->call('save')
+            ->assertHasErrors(['currentProject.url' => 'url']);
+    }
+
+    /** @test */
+    public function repo_url_must_be_a_valid_url()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.repo_url', 'invalid_url')
+            ->call('save')
+            ->assertHasErrors(['currentProject.repo_url' => 'url']);
+    }
+
+    /** @test */
+    public function repo_url_must_match_with_regex()
+    {
+        $user = User::factory()->create();
+        
+        Livewire::actingAs($user)
+            ->test(Project::class)
+            ->set('currentProject.repo_url', 'https://nogithub.com/rubencamacho/portfolio')
+            ->call('save')
+            ->assertHasErrors(['currentProject.repo_url' => 'regex']);
+    }
     
 }
