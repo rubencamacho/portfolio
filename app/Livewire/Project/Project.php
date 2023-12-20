@@ -3,6 +3,7 @@
 namespace App\Livewire\Project;
 
 use App\Livewire\Traits\Notefication;
+use App\Livewire\Traits\ShowProject;
 use App\Livewire\Traits\Slideover;
 use App\Livewire\Traits\WidthImageFile;
 use App\Models\Project as ProjectModel;
@@ -11,7 +12,7 @@ use Livewire\WithFileUploads;
 
 class Project extends Component
 {
-    use Slideover, WidthImageFile, WithFileUploads, Notefication;
+    use Slideover, WidthImageFile, WithFileUploads, Notefication, ShowProject;
 
     public ProjectModel $currentProject;
     public bool $openModal = false;
@@ -79,7 +80,7 @@ class Project extends Component
 
     public function render()
     {
-        $projects = ProjectModel::get();
+        $projects = ProjectModel::take($this->counter)->get();
         return view('livewire.project.project', ['projects' => $projects]);
     }
 }
