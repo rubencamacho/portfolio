@@ -3,11 +3,14 @@
 namespace App\Livewire\Contact;
 
 use Livewire\Component;
+use App\Models\SocialLink as SocialLinkModel;
 
 class SocialLink extends Component
 {
+
     public function render()
     {
-        return view('livewire.contact.social-link');
+        $socialLinks = SocialLinkModel::get();
+        return view('livewire.contact.social-link', compact('socialLinks'));
     }
 }
