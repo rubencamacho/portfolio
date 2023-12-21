@@ -76,4 +76,28 @@ class SocialLinkTest extends TestCase
             'icon' => 'fa-brands fa-youtube'
         ]);
     }
+
+    /** @test */
+    public function admin_can_edit_a_social_link()
+    {
+        $user = User::factory()->create();
+
+        $link = ModelsSocialLink::factory()->create();
+
+        Livewire::actingAs($user)->test(SocialLink::class)
+            ->set('socialLinkSelected', $link->id)
+            ->set('socialLink.name', 'Youtube')
+            ->set('socialLink.url', 'https://youtube.com/profile')
+            ->set('socialLink.icon', 'fa-brands fa-youtube')
+            ->call('save');
+
+        $link->refresh();
+
+        $this->assertDatabaseHas('social_links', [
+            'id' => $link->id,
+            'name' => 'Youtube',
+            'url' => 'https://youtube.com/profile',
+            'icon' => $link->icon
+        ]);
+    }
 }
