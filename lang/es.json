@@ -109,6 +109,11 @@
     "Email Address": "Correo electrónico",
     "Update Email": "Actualizar email",
     "Contact email updated successfully.": "Correo de contacto actualizado correctamente.",
-    "There is no social links to show": "No hay enlaces sociales para mostrar"
+    "There is no social links to show": "No hay enlaces sociales para mostrar",
+    "Url": "Enlace",
+    "You can find the icon you need": "Puede encontrar el icono que necesita",
+    "here": "aquí",
+    "Create": "Crear",
+    "Social link saved successfully!": "Enlace social guardado correctamente"
 
 }
