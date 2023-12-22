@@ -100,4 +100,20 @@ class SocialLinkTest extends TestCase
             'icon' => $link->icon
         ]);
     }
+
+    /** @test */
+    public function admin_can_delete_a_social_link()
+    {
+        $user = User::factory()->create();
+
+        $link = ModelsSocialLink::factory()->create();
+
+        Livewire::actingAs($user)->test(SocialLink::class)
+            ->set('socialLinkSelected', $link->id)
+            ->call('deleteSocialLink');
+
+        $this->assertDatabaseMissing('social_links', [
+            'id' => $link->id
+        ]);
+    }
 }
