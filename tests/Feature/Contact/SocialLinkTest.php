@@ -116,4 +116,70 @@ class SocialLinkTest extends TestCase
             'id' => $link->id
         ]);
     }
+
+    /** @test */
+    public function social_link_name_is_required()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(SocialLink::class)
+            ->set('socialLink.name', '')
+            ->call('save')
+            ->assertHasErrors(['socialLink.name' => 'required']);
+    }
+
+    /** @test */
+    public function name_must_have_a_maximum_of_twenty_characters()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(SocialLink::class)
+            ->set('socialLink.name', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptate.')
+            ->call('save')
+            ->assertHasErrors(['socialLink.name' => 'max']);
+    }
+
+    /** @test */
+    public function social_link_url_is_required()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(SocialLink::class)
+            ->set('socialLink.url', '')
+            ->call('save')
+            ->assertHasErrors(['socialLink.url' => 'required']);
+    }
+
+    /** @test */
+    public function social_link_url_must_be_a_valid_url()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(SocialLink::class)
+            ->set('socialLink.url', 'invalid-url')
+            ->call('save')
+            ->assertHasErrors(['socialLink.url' => 'url']);
+    }
+
+    /** @test */
+    public function social_link_icon_must_be_a_valid_font_awesome_icon()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(SocialLink::class)
+            ->set('socialLink.icon', 'invalid-icon')
+            ->call('save')
+            ->assertHasErrors(['socialLink.icon' => 'regex']);
+    }
+
+    /** @test */
+    public function icon_must_match_with_regex()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)->test(SocialLink::class)
+            ->set('socialLink.icon', 'fa-fa fa-face-smile-wink')
+            ->call('save')
+            ->assertHasErrors(['socialLink.icon' => 'regex']);
+    }
 }
