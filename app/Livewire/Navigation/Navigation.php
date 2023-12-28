@@ -43,6 +43,7 @@ class Navigation extends Component
         }
 
         $this->reset('openSlideover');
+        $this->dispatch('itemsHaveBeenUpdated', 'navigation.footer-link');
         // notify
         $this->notify(__("Menu items updated successfully"));
     }
@@ -52,6 +53,7 @@ class Navigation extends Component
         $item = $value;
         $item->delete();
         $this->items = Navitem::all();
+        $this->dispatch('itemsHaveBeenUpdated', 'navigation.footer-link');
         $this->notify(__("Menu item has been deleted."), 'deleteMessage');
     }
 

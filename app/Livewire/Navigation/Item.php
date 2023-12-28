@@ -26,6 +26,7 @@ class Item extends Component
         $this->item->save();
         // $this->emitTo('navigation.navigation', 'itemAdded');
         $this->dispatch('itemAdded','navigation.navigation');
+        $this->dispatch('itemsHaveBeenUpdated', 'navigation.footer-link');
         $this->mount();
         $this->notify(__('Item created successfully!'));
     }
