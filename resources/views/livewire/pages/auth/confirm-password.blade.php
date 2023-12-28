@@ -8,7 +8,7 @@ use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;
 
-layout('layouts.guest');
+layout('layouts.main');
 
 state(['password' => '']);
 
@@ -37,6 +37,14 @@ $confirmPassword = function () {
 ?>
 
 <div>
+    <x-auth-card>   
+        
+        <x-slot name="logo">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            </a>
+        </x-slot>
+
     <div class="mb-4 text-sm text-gray-600">
         {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
     </div>
@@ -47,11 +55,11 @@ $confirmPassword = function () {
             <x-input-label for="password" :value="__('Password')" />
 
             <x-text-input wire:model.live="password"
-                          id="password"
-                          class="block mt-1 w-full"
-                          type="password"
-                          name="password"
-                          required autocomplete="current-password" />
+                        id="password"
+                        class="block mt-1 w-full"
+                        type="password"
+                        name="password"
+                        required autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -62,4 +70,6 @@ $confirmPassword = function () {
             </x-primary-button>
         </div>
     </form>
+
+    </x-auth-card>
 </div>

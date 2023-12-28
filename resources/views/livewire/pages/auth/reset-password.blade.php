@@ -11,7 +11,7 @@ use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;
 
-layout('layouts.guest');
+layout('layouts.main');
 
 state('token')->locked();
 
@@ -62,6 +62,14 @@ $resetPassword = function () {
 ?>
 
 <div>
+    <x-auth-card>   
+        
+        <x-slot name="logo">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            </a>
+        </x-slot>
+
     <form wire:submit="resetPassword">
         <!-- Email Address -->
         <div>
@@ -82,8 +90,8 @@ $resetPassword = function () {
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
             <x-text-input wire:model.live="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                          type="password"
-                          name="password_confirmation" required autocomplete="new-password" />
+                        type="password"
+                        name="password_confirmation" required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
@@ -94,4 +102,6 @@ $resetPassword = function () {
             </x-primary-button>
         </div>
     </form>
+
+    </x-auth-card>
 </div>

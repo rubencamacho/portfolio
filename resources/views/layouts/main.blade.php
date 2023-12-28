@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Aldrich" media="all">
 
         <!-- Agregamos los estilos del livewire -->
-        
+        {{-- @livewireStyles --}}
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

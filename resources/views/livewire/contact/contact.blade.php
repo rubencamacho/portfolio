@@ -12,12 +12,15 @@
     @endif
     
     <!-- Boton edit -->
-    <x-actions.action wire:click.prevent="openSlide" title="{{ __('Edit') }}" class="flex items-center justify-center px-8 md:px-10 text-yellow-300 hover:text-blue-300">
-        <x-icons.edit/>
-    </x-actions.action>
+    @auth
+        <x-actions.action wire:click.prevent="openSlide" title="{{ __('Edit') }}" class="flex items-center justify-center px-8 md:px-10 text-yellow-300 hover:text-blue-300">
+            <x-icons.edit/>
+        </x-actions.action>
 
     <!-- SlideOver -->
-    <x-modals.slideover>
-        <x-forms.edit-contact-email />
-    </x-modals.slideover>
+
+        <x-modals.slideover>
+            <x-forms.edit-contact-email />
+        </x-modals.slideover>
+    @endauth
 </div>
