@@ -47,12 +47,12 @@ class NavigationTest extends TestCase
      /** @test */
     public function guests_cannot_see_navigation_actions()
     {
-    //     Livewire::test(Navigation::class)
-    //         ->assertStatus(200)
-    //         ->assertDontSee(__('Edit'))
-    //         ->assertDontSee(__('New'));
+        Livewire::test(Navigation::class)
+            ->assertStatus(200)
+            ->assertDontSee(__('Edit'))
+            ->assertDontSee(__('New'));
 
-    //     $this->assertGuest();
+        $this->assertGuest();
     }
 
     /** @test */

@@ -46,14 +46,13 @@ class InfoTest extends TestCase
     /** @test */
     public function guests_cannot_see_hero_action()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
         // $this->markTestSkipped('This test has not been implemented yet.');
         
-        // Livewire::test(Info::class)
-        //     ->assertStatus(200)
-        //     ->assertDontSee(__('Edit'));
+        Livewire::test(Info::class)
+            ->assertStatus(200)
+            ->assertDontSee(__('Edit'));
         
-        // $this->assertGuest();
+        $this->assertGuest();
     }
 
     /** @test */

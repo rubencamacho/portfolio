@@ -11,6 +11,8 @@ use Tests\TestCase;
 
 class Itemtest extends TestCase
 {
+    use RefreshDatabase;
+    
     /** @test */
     public function item_can_be_rendered()
     {

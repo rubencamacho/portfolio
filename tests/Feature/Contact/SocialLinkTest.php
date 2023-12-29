@@ -50,13 +50,13 @@ class SocialLinkTest extends TestCase
     /** @test */
     public function guest_cannot_see_social_links_actions()
     {
-        $this->markTestSkipped('This test has not been implemented yet.');
-        // Livewire::test(SocialLink::class)
-        //     ->assertStatus(200)
-        //     ->assertDontSee(_('New'))
-        //     ->assertDontSee(__('Edit'));
+        // $this->markTestSkipped('This test has not been implemented yet.');
+        Livewire::test(SocialLink::class)
+            ->assertStatus(200)
+            ->assertDontSee(_('New'))
+            ->assertDontSee(__('Edit'));
         
-        // $this->assertGuest();
+        $this->assertGuest();
     }
 
     /** @test */

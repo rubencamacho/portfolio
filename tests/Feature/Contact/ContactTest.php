@@ -44,12 +44,12 @@ class ContactTest extends TestCase
     /** @test */
     public function guests_cannot_see_contact_action()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
-        // Livewire::test(Contact::class)
-        //     ->assertStatus(200)
-        //     ->assertDontSee('Edit');
+        // $this->markTestIncomplete('This test has not been implemented yet.');
+        Livewire::test(Contact::class)
+            ->assertStatus(200)
+            ->assertDontSee('Edit');
         
-        // $this->assertGuest();
+        $this->assertGuest();
     }
 
     /** @test */

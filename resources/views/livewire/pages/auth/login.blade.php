@@ -23,12 +23,11 @@ $login = function () {
         navigate: true
     );
 };
-
+    
 ?>
 
 <div>
     
-
     <x-auth-card>   
         
         <x-slot name="logo">
